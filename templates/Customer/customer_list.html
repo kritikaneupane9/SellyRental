@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Customer</title>
+</head>
+<body>
+<h2>Customer list</h2>
+{{ customer|length }} customers found.
+<br>
+<table>
+<tr>
+    <th>Name</th>
+    <th>address</th>
+    <th>phone number</th>
+</tr>
+{% for a in customer %}
+    <tr>
+        <td>{{ a.name }}</td>
+        <td>{{ a.address }}</td>
+        <td>{{ a.phone_number }}</td>
+
+</tr>
+{% endfor %}</table>
+</body>
+</html>
