@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% if form.instance.pk %}Edit Product{% else %}Add Product{% endif %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="form-container">
+        <h2>
+            {% if form.instance.pk %}
+                Update Product: {{ form.instance.product_name }}
+            {% else %}
+                Add Product
+            {% endif %}
+        </h2>
+
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">
+                {% if form.instance.pk %}Update{% else %}Add{% endif %} Product
+            </button>
+        </form>
+
+        <a href="{% url 'product_list' %}">Back to Product List</a>
+    </div>
+</body>
+</html>

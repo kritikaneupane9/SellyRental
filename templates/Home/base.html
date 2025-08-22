@@ -1,0 +1,168 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}SellyThrift{% endblock %}</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #ffffff;
+            color: #000000;
+        }
+
+        a {
+            text-decoration: none;
+            color: #000000;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        a:hover {
+            color: #555555;
+        }
+
+        header {
+            background-color: #ffffff;
+            padding: 10px 0;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+        }
+
+        .header-container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 60px;
+        }
+
+        .logo a {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .search-bar {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .search-bar form {
+            width: 100%;
+            max-width: 300px;
+            display: flex;
+            border: 1px solid #cccccc;
+            border-radius: 30px;
+            overflow: hidden;
+            background-color: #ffffff;
+        }
+
+        .search-bar input[type="text"] {
+            flex: 1;
+            padding: 6px 10px;
+            border: none;
+            outline: none;
+            font-size: 0.9rem;
+            background-color: #ffffff;
+            color: #000000;
+        }
+
+        .search-bar button {
+            padding: 0 12px;
+            background-color: #000000;
+            border: none;
+            color: #ffffff;
+            font-weight: bold;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .search-bar button:hover {
+            background-color: #333333;
+        }
+
+        nav.nav-right ul {
+            list-style: none;
+            display: flex;
+            gap: 15px;
+        }
+
+        nav.nav-right ul li a {
+            font-size: 0.9rem;
+        }
+
+        footer {
+            background-color: #000000;
+            color: #ffffff;
+            padding: 15px 0;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 10px;
+                height: auto;
+            }
+
+            .search-bar {
+                order: 2;
+                margin: 6px 0;
+            }
+
+            nav.nav-right ul {
+                flex-direction: row;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <a href="{% url 'home' %}">SellyThrift</a>
+            </div>
+
+            <div class="search-bar">
+                <form method="GET" action="{% url 'customer_product_list' %}">
+                    <input type="text" name="q" placeholder="Search products">
+                    <button type="submit">Search</button>
+                </form>
+            </div>
+
+            <nav class="nav-right">
+                <ul class="nav-links">
+                    <li><a href="{% url 'home' %}">Home</a></li>
+                    <li><a href="{% url 'customer_product_list' %}">Shop</a></li>
+                </ul>
+            </nav>
+
+        </div>
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 SellyThrift. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

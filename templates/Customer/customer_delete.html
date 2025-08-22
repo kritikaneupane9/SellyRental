@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete Customer</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <h2>Delete Customer</h2>
+    <p>Are you sure you want to delete "{{ customer.name }}"?</p>
+
+    <form method="post" action="{% url 'customer_delete' customer.id %}">
+        {% csrf_token %}
+        <button type="submit">Yes, delete</button>
+        <a href="{% url 'customer_list' %}">Cancel</a>
+    </form>
+</body>
+</html>

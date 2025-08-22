@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bids - List</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <h2>Bid List</h2>
+    <a href="{% url 'product_list' %}">Back to Product List</a>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Product</th>
+            <th>Bidder Name</th>
+            <th>Bid Amount</th>
+            <th>Highest Amount</th>
+            <th>Time</th>
+            <th>Actions</th>
+        </tr>
+
+        {% for bid in bids %}
+        <tr>
+            <td>{{ bid.id }}</td>
+            <td>{{ bid.product.product_name }}</td>
+            <td>{{ bid.bidder_name }}</td>
+            <td>{{ bid.amount }}</td>
+            <td>
+                {% if bid.highest_bid %}
+                    {{ bid.highest_bid }}
+                {% else %}
+                    No bids yet
+                {% endif %}
+            </td>
+            <td>{{ bid.bid_time }}</td>
+            <td>
+                <a href="{% url 'bid_confirm_delete' bid.id %}">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

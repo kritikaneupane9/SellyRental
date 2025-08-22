@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delete Bid</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <h1>Delete Bid</h1>
+    <p>Are you sure you want to delete the bid by "{{ bid.user }}" on "{{ bid.product.product_name }}"?</p>
+
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit">Yes, Delete</button>
+        <a href="{% url 'bid_list' bid.product.id %}">Cancel</a>
+    </form>
+</body>
+</html>

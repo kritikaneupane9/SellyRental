@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Shop</title>
+</head>
+<body>
+    <h1>Available Products</h1>
+
+    {% if products %}
+        {% for product in products %}
+            <div>
+                {% if product.image %}
+                    <img src="{{ product.image.url }}" alt="{{ product.product_name }}" width="200">
+                {% endif %}
+                <h2>{{ product.product_name }}</h2>
+                <p>{{ product.product_description }}</p>
+                <p><strong>Price:</strong> ${{ product.price }}</p>
+            </div>
+            <hr>
+        {% endfor %}
+    {% else %}
+        <p>No products available yet.</p>
+    {% endif %}
+</body>
+</html>
