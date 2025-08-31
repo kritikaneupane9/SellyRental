@@ -24,7 +24,7 @@ def bid_create(request, product_id):
             bidder_name=bidder_name,
             amount=amount
         )
-        return redirect('product_list')
+        return redirect('customer_product_detail',pk=product.pk)
     return render(request, 'bid/bid_form.html', {'product': product})
 
 def bid_confirm_delete(request,pk):

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from customer.models import Customer
-from product.models import Product
+from product.models import Product, Category
 
 
 def customer_list(request):
@@ -48,11 +48,27 @@ def customer_delete(request, pk):
         return redirect('customer_list')
 
     return render(request, 'customer/customer_delete.html', {'customer': customer})
-
 def customer_product_list(request):
-    product = Product.objects.all()
-    context ={'product':product}
-    return render(request,'customer/customer_product_list.html',context)
+    products = Product.objects.all()
+    categories = Category.objects.all()
 
+    selected_category = request.GET.get("category", "")
+
+    if selected_category:
+        products = products.filter(category_id=selected_category)
+
+    context = {
+        'products': products,
+        'categories': categories,
+        'selected_category': selected_category,
+    }
+
+    return render(request, 'customer/customer_product_list.html', context)
+
+def customer_product_detail(request,pk):
+    product = get_object_or_404(Product, pk=pk)
+    context ={'product':product}
+    return render(request, 'customer/customer_product_detail.html',context)
 def home(request):
     return render(request, 'home/home.html')
+

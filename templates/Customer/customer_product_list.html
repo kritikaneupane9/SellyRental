@@ -1,26 +1,77 @@
+{% extends 'home/base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Shop</title>
-</head>
-<body>
-    <h1>Available Products</h1>
 
+{% block title %}Shop - SellyThrift{% endblock %}
+
+{% block content %}
+
+<h1 style="text-align:center; margin-top:20px;">Available Products</h1>
+
+
+{% include 'product/filter.html' %}
+
+<div class="products-container">
     {% if products %}
         {% for product in products %}
-            <div>
-                {% if product.image %}
-                    <img src="{{ product.image.url }}" alt="{{ product.product_name }}" width="200">
-                {% endif %}
-                <h2>{{ product.product_name }}</h2>
-                <p>{{ product.product_description }}</p>
-                <p><strong>Price:</strong> ${{ product.price }}</p>
+            <div class="product-card">
+                <a href="{% url 'product_detail' product.pk %}" style="text-decoration:none; color:inherit;">
+                    {% if product.image %}
+                        <img src="{{ product.image.url }}" alt="{{ product.product_name }}">
+                    {% else %}
+                        <img src="{% static 'image/default.png' %}" alt="No Image">
+                    {% endif %}
+                    <h2>{{ product.product_name }}</h2>
+                    <p>{{ product.product_description|truncatewords:15 }}</p>
+                    <p class="price">Rs.{{ product.price }}</p>
+                </a>
             </div>
-            <hr>
         {% endfor %}
     {% else %}
-        <p>No products available yet.</p>
+        <p style="text-align:center; font-size:18px;">No products available yet.</p>
     {% endif %}
-</body>
-</html>
+</div>
+
+<style>
+    .products-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+        margin-top: 30px;
+    }
+    .product-card {
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        padding: 15px;
+        width: 250px;
+        text-align: center;
+        background-color: #f9f9f9;
+        transition: transform 0.2s;
+    }
+    .product-card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .product-card img {
+        max-width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 8px;
+        margin-bottom: 10px;
+    }
+    .product-card h2 {
+        font-size: 18px;
+        margin: 10px 0 5px 0;
+    }
+    .product-card p {
+        font-size: 14px;
+        color: #555;
+    }
+    .product-card .price {
+        font-weight: bold;
+        color: #000;
+        margin: 10px 0;
+    }
+</style>
+
+{% endblock %}

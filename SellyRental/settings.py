@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     'customer.apps.CustomerConfig',
     'product',
     'bid',
-
 ]
 
 MIDDLEWARE = [
