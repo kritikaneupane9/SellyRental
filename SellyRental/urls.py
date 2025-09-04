@@ -25,10 +25,11 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('customer/', include('customer.urls')),
     path('employee/', include('employee.urls')),
-    path('product/', include('product.urls')),
+    path('product/', include('product.urls', namespace ='product')),
     path('bid/',include('bid.urls')),
     path('', views.home, name='home'),
-
+    path('accounts/', include('accounts.urls')),
+    path('cart/',include('cart.urls',namespace='cart')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 

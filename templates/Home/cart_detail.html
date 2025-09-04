@@ -1,0 +1,118 @@
+{% extends 'home/base.html' %}
+{% load static %}
+{% block content %}
+<h1>Your Cart</h1>
+
+{% if cart %}
+<table class="cart-table">
+    <thead>
+        <tr>
+            <th></th>
+            <th>PRODUCT</th>
+            <th>PRICE</th>
+            <th>QUANTITY</th>
+            <th>SUBTOTAL</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in cart %}
+        <tr>
+            <td>
+                <form method="post" action="{% url 'cart:remove' item.product.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="remove-btn">&times;</button>
+                </form>
+            </td>
+            <td>
+                {% if item.product.image %}
+                <img src="{{ item.product.image.url }}" alt="{{ item.product.product_name }}">
+                {% endif %}
+                {{ item.product.product_name }}
+            </td>
+            <td>Rs {{ item.price|floatformat:2 }}</td>
+            <td>{{ item.quantity }}
+            </td>
+            <td>Rs {{ item.subtotal|floatformat:2 }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<div class="total">
+    Total: Rs {{ cart.get_total_price|floatformat:2 }}
+</div>
+
+{% else %}
+<p>Your cart is empty.</p>
+{% endif %}
+
+<style>
+    header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+    }
+
+    footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+    }
+
+    body {
+        margin: 0;
+        padding-top: 50px;
+        padding-bottom: 40px;
+        font-family: Arial, sans-serif;
+    }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 30px;
+        color: #000;
+    }
+
+    .cart-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 30px;
+    }
+
+    .cart-table th, .cart-table td {
+        text-align: left;
+        padding: 12px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .cart-table img {
+        width: 60px;
+        height: 60px;
+        object-fit: cover;
+        border-radius: 6px;
+        margin-right: 10px;
+    }
+
+    .remove-btn {
+        background: none;
+        border: none;
+        font-size: 18px;
+        cursor: pointer;
+        color: #000;
+    }
+
+    .remove-btn:hover {
+        color: #ff0000;
+    }
+
+    .total {
+        text-align: right;
+        font-weight: bold;
+        margin-top: 15px;
+        font-size: 18px;
+    }
+</style>
+{% endblock %}

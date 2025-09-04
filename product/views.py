@@ -2,7 +2,7 @@ from django.db.models import Max
 from django.shortcuts import render, redirect, get_object_or_404
 
 from .models import Product, Category
-from .forms import ProductForm, ProductFilterForm
+from .forms import ProductForm
 
 
 def product_list(request):
@@ -63,14 +63,16 @@ def customer_product_list(request):
     categories = Category.objects.all()
 
     selected_category = request.GET.get("category", "")
-
+    search_query = request.GET.get("q","")
     if selected_category:
         products = products.filter(category_id=selected_category)
-
+    if search_query:
+        products = products.filter(product_name__icontains=search_query)
     context = {
         'products': products,
         'categories': categories,
         'selected_category': selected_category,
+        'search_query': search_query,
     }
 
     return render(request, 'customer/customer_product_list.html', context)
@@ -87,5 +89,5 @@ def customer_product_action(request, product_id):
     if request.method == "POST":
         quantity = int(request.POST.get("quantity", 1))
         print(f"User selected {quantity} of {product.product_name}")
-        return redirect('customer_product', pk=product.id)
-    return redirect('customer_product', pk=product.id)
+        return redirect('product:product_detail', pk=product.id)
+    return redirect('product:customer_products')

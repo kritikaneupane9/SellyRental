@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Register</h2>
+
+        <div class="messages">
+            {% if messages %}
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        <form method="post">
+            {% csrf_token %}
+
+            <label for="id_username">Username:</label>
+            {{ form.username }}
+            {{ form.username.errors }}
+
+            <label for="id_full_name">Full Name:</label>
+            {{ form.full_name }}
+            {{ form.full_name.errors }}
+
+            <label for="id_email">Email:</label>
+            {{ form.email }}
+            {{ form.email.errors }}
+
+            <label for="id_phone_number">Phone Number:</label>
+            {{ form.phone_number }}
+            {{ form.phone_number.errors }}
+
+            <label for="id_password1">Password:</label>
+            {{ form.password1 }}
+            {{ form.password1.errors }}
+
+            <label for="id_password2">Confirm Password:</label>
+            {{ form.password2 }}
+            {{ form.password2.errors }}
+
+            <button type="submit">Register</button>
+        </form>
+
+        <div class="login-link">
+            Already have an account? <a href="{% url 'login' %}">Login here</a>
+        </div>
+    </div>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+        }
+        .form-container {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border-radius: 25px;
+            box-sizing: border-box;
+        }
+        .messages p {
+            color: red;
+            margin: 5px 0;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px;
+            width: 100%;
+            background-color: #000000;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        a {
+            color: #000000;
+        }
+        .login-link {
+            text-align: center;
+            margin-top: 15px;
+        }
+    </style>
+</body>
+</html>
