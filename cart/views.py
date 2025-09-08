@@ -1,6 +1,9 @@
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
+
+from userprofile.models import Order
 from .cart import Cart
 from product.models import Product
 
@@ -23,3 +26,20 @@ def cart_detail(request):
     context ={'cart':cart}
     return render(request, 'home/cart_detail.html',context)
 
+@login_required
+def checkout(request):
+    cart = Cart(request)
+
+    if len(cart) == 0:
+        return redirect('cart:view')
+
+    for item in cart:
+        Order.objects.create(
+            user=request.user,
+            product=item['product'],
+            quantity=item['quantity'],
+            total_price=item['price'] * item['quantity']
+        )
+
+    cart.clear()
+    return redirect('userprofile:order_history')

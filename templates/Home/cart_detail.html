@@ -41,6 +41,13 @@
 <div class="total">
     Total: Rs {{ cart.get_total_price|floatformat:2 }}
 </div>
+    <div class = "checkout">
+    <form method ="post" action="{% url 'userprofile:checkout' %}">
+        {%  csrf_token %}
+        <button type ="submit" class="checkout-btn">Checkout</button>
+    </form>
+    </div>
+
 
 {% else %}
 <p>Your cart is empty.</p>
@@ -65,7 +72,7 @@
 
     body {
         margin: 0;
-        padding-top: 50px;
+        padding-top: 80px;
         padding-bottom: 40px;
         font-family: Arial, sans-serif;
     }
@@ -113,6 +120,19 @@
         font-weight: bold;
         margin-top: 15px;
         font-size: 18px;
+    }
+    .checkout-btn {
+        background-color: #000000;
+        border: none;
+        padding: 12px 25px;
+        color: #fff;
+        font-size: 16px;
+        border-radius: 6px;
+        cursor: pointer;
+    }
+
+    .checkout-btn:hover {
+        background-color: #000000;
     }
 </style>
 {% endblock %}

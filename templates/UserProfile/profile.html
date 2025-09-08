@@ -1,0 +1,96 @@
+{% extends 'home/base.html' %}
+{% load static %}
+{% block title %}User Profile{% endblock %}
+{% block content %}
+
+<div class="profile-page-container">
+    <aside class="profile-menu">
+        <ul>
+            <li><a href="{% url 'userprofile:account_detail' %}">Account Details</a></li>
+            <li><a href="{% url 'userprofile:order_history' %}">Order History</a></li>
+            <li><a href="{% url 'logout' %}">Logout</a></li>
+        </ul>
+    </aside>
+
+    <main class="profile-content">
+        <h1>Welcome, {{ user.username }}</h1>
+        <p>Select an option from the menu to view your details.</p>
+    </main>
+</div>
+<style>
+ footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+    }
+
+.profile-dropdown a {
+    display: block;
+    padding: 10px 15px;
+    color: #333;
+    text-decoration: none;
+}
+
+.profile-dropdown a:hover {
+    background: #f0f0f0;
+}
+
+.header-profile:hover .profile-dropdown {
+    display: block;
+}
+
+.profile-page-container {
+    display: flex;
+    max-width: 1200px;
+    margin: 80px auto 20px;
+    gap: 20px;
+}
+
+.profile-menu {
+    width: 220px;
+    background: #f8f8f8;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.profile-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.profile-menu li a {
+    display: block;
+    padding: 12px 20px;
+    text-decoration: none;
+    color: #333;
+    border-bottom: 1px solid #ddd;
+}
+
+.profile-menu li a:hover {
+    background: #e0e0e0;
+}
+
+.profile-content {
+    flex: 1;
+    padding: 20px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+@media screen and (max-width: 768px) {
+    .profile-page-container {
+        flex-direction: column;
+    }
+
+    .profile-menu {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+}
+</style>
+
+{% endblock %}

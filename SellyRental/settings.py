@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'bid',
     'accounts',
     'cart',
+    'userprofile',
 ]
 CART_SESSION_ID = 'cart'
 
